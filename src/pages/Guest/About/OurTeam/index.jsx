@@ -48,7 +48,7 @@ const OurTeam = () => {
     <>
       <div>
         {/* Hero Section */}
-        <section className='bg-gray-900 text-white py-20 mb-12'>
+        <section className='bg-gray-800 text-white py-20 mb-12'>
           <div className='container mx-auto text-center mt-24'>
             <h1 className='text-5xl font-bold mb-4 text-red-600'>
               Our Teachers
