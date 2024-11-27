@@ -40,7 +40,7 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
 
-            <div className='hidden md:flex space-x-8 font-bold'>
+            <div className='hidden md:flex space-x-8 font-bold md:items-center'>
               <NavLink href='/' className='text-gray-700 hover:text-red-600 transition duration-300'>
                 Home
               </NavLink>
