@@ -39,16 +39,33 @@ const Navbar = () => {
             </NavLink>
 
             {/* Desktop Menu */}
-            <div className='hidden md:flex space-x-8 font-bold items-center'>
+
+            <div className='hidden md:flex space-x-8 font-bold'>
               <NavLink href='/' className='text-gray-700 hover:text-red-600 transition duration-300'>
                 Home
               </NavLink>
               <NavLink to='/course' className='text-gray-700 hover:text-red-600 transition duration-300'>
                 Programs
               </NavLink>
-              <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
-                Events
-              </a>
+              <div className='relative group'>
+                <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
+                  News
+                </a>
+                <div className='absolute left-0 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
+                  <ul className='py-2'>
+                    <li>
+                      <a href='/feartured-news' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
+                        Feartured news
+                      </a>
+                    </li>
+                    <li>
+                      <a href='/events' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
+                        Events
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div className='relative group'>
                 <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   About

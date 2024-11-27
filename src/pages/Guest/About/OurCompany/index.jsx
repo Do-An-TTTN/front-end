@@ -24,7 +24,7 @@ const OurCompany = () => {
     <>
       <div>
         {/* Hero Section */}
-        <section className='relative bg-gray-900 text-white py-20'>
+        <section className='relative bg-gray-800 text-white py-20'>
           <div className='container mx-auto px-4 text-center mt-24'>
             <h1 className='text-5xl font-bold mb-4 text-red-600'>
               Welcome to Star Foreign Language Center
