@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { IoIosArrowUp } from 'react-icons/io'
 import { useLocation } from 'react-router-dom'
-import Button from '~/components/ui/Button'
+import ButtonCustom from '~/components/ui/Button'
 const { TextArea } = Input
 
 const HomePage = () => {
@@ -95,8 +95,6 @@ const HomePage = () => {
 
   const location = useLocation()
 
-  console.log(location.state)
-
   useEffect(() => {
     if (location.state?.scrollTo === 'contact') {
       const section = document.getElementById('contact')
@@ -144,7 +142,7 @@ const HomePage = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button>Learn More</Button>
+                  <ButtonCustom>Learn More</ButtonCustom>
                 </div>
               </div>
             ))}
@@ -180,7 +178,7 @@ const HomePage = () => {
                 <h3 className='text-2xl font-bold mb-2'>{event.title}</h3>
                 <p className='text-red-600 mb-4'>{new Date(event.date).toLocaleDateString()}</p>
                 <p className='text-gray-600 mb-6'>{event.description}</p>
-                <Button>Register Now</Button>
+                <ButtonCustom>Register Now</ButtonCustom>
               </div>
             ))}
           </div>
@@ -217,7 +215,7 @@ const HomePage = () => {
                     }}
                   />
                 </div>
-                <Button widthFull>Send Message</Button>
+                <ButtonCustom>Send Message</ButtonCustom>
               </form>
             </div>
             <div>

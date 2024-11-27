@@ -1,11 +1,29 @@
-import { useState } from 'react'
+import { message } from 'antd'
+import { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-scroll'
+import authAPI from '~/api/authAPI'
+import ModalLogin from '~/components/Navbar/ModalLogin'
+import ButtonCustom from '~/components/ui/Button'
+import { AuthContext } from '~/context/AuthContext'
 
 const Navbar = () => {
+  const { currentUser, updateUser } = useContext(AuthContext)
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const navigate = useNavigate()
+
+  const showModal = async () => {
+    if (currentUser) {
+      await authAPI.logOut()
+      updateUser(null)
+      message.success('Đăng xuất thành công')
+    } else {
+      setIsModalOpen(true)
+    }
+  }
 
   const handleContactClick = () => {
     navigate('/', { state: { scrollTo: 'contact' } })
@@ -21,7 +39,7 @@ const Navbar = () => {
             </NavLink>
 
             {/* Desktop Menu */}
-            <div className='hidden md:flex space-x-8 font-bold'>
+            <div className='hidden md:flex space-x-8 font-bold items-center'>
               <NavLink href='/' className='text-gray-700 hover:text-red-600 transition duration-300'>
                 Home
               </NavLink>
@@ -53,6 +71,7 @@ const Navbar = () => {
               <Link to='/' onClick={handleContactClick} className='text-gray-700 hover:text-red-600 transition duration-300 cursor-pointer'>
                 Contact
               </Link>
+              <ButtonCustom onClick={showModal}>{currentUser ? 'Đăng xuất' : 'Đăng nhập'} </ButtonCustom>
             </div>
 
             {/* Mobile Menu Button */}
@@ -103,6 +122,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
+      <ModalLogin isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   )
 }

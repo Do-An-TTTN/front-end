@@ -1,8 +1,21 @@
-const Button = ({ widthFull, children }) => {
+import { ConfigProvider, Button } from 'antd'
+
+const ButtonCustom = ({ onClick, children, htmlType, normal, disabled }) => {
   return (
     <>
-      <button className={`${widthFull ? 'w-full' : ''} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300`}>{children}</button>
+      <ConfigProvider theme={{ components: { Button: { colorPrimary: '#dc2626', algorithm: true } } }}>
+        <Button
+          onClick={onClick}
+          size={`${!normal ? 'large' : ''}`}
+          disabled={disabled}
+          htmlType={htmlType}
+          className='text-white font-bold rounded-lg transition duration-300'
+          type='primary'
+        >
+          {children}
+        </Button>
+      </ConfigProvider>
     </>
   )
 }
-export default Button
+export default ButtonCustom
