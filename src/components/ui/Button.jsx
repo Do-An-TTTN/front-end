@@ -1,6 +1,6 @@
 import { ConfigProvider, Button } from 'antd'
 
-const ButtonCustom = ({ onClick, children, htmlType, normal, disabled }) => {
+const ButtonCustom = ({ onClick, children, htmlType, normal, disabled, className }) => {
   return (
     <>
       <ConfigProvider theme={{ components: { Button: { colorPrimary: '#dc2626', algorithm: true } } }}>
@@ -9,7 +9,7 @@ const ButtonCustom = ({ onClick, children, htmlType, normal, disabled }) => {
           size={`${!normal ? 'large' : ''}`}
           disabled={disabled}
           htmlType={htmlType}
-          className='text-white font-bold rounded-lg transition duration-300'
+          className={`text-white rounded-lg transition duration-300 ${className}`}
           type='primary'
         >
           {children}
