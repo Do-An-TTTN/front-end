@@ -1,17 +1,14 @@
-import { Input } from 'antd'
+import { Form, Input, message } from 'antd'
 import { useState, useEffect } from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { IoIosArrowUp } from 'react-icons/io'
 import { useLocation } from 'react-router-dom'
+import contactAPI from '~/api/contactAPI'
 import ButtonCustom from '~/components/ui/Button'
 const { TextArea } = Input
 
 const HomePage = () => {
   const [isVisible, setIsVisible] = useState(false)
-
-  const onChange = (e) => {
-    console.log('Change:', e.target.value)
-  }
 
   const programs = [
     {
@@ -91,6 +88,15 @@ const HomePage = () => {
       top: 0,
       behavior: 'smooth'
     })
+  }
+
+  const onFinish = async (values) => {
+    try {
+      await contactAPI.createContact(values)
+      message.success('Gửi lời nhắn thành công')
+    } catch (error) {
+      message(error.response.data.message)
+    }
   }
 
   const location = useLocation()
@@ -188,38 +194,73 @@ const HomePage = () => {
       {/* Contact Section */}
       <section className='py-20' id='contact'>
         <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Contact Us</h2>
+          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Liên hệ với chúng tôi</h2>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             <div>
-              <h3 className='text-2xl font-bold mb-6'>Get in Touch</h3>
-              <form className='space-y-4'>
-                <div>
-                  <label className='block text-gray-700 mb-2'>Name</label>
-                  <Input size='large' />
-                </div>
-                <div>
-                  <label className='block text-gray-700 mb-2'>Email</label>
-                  <Input size='large' />
-                </div>
-                <div>
-                  <label className='block text-gray-700 mb-2'>Message</label>
+              <h3 className='text-2xl font-bold mb-6'>Liên hệ</h3>
+              <Form
+                name='basic'
+                onFinish={onFinish}
+                autoComplete='off'
+                layout='vertical'
+                labelCol={{
+                  span: 8
+                }}
+                wrapperCol={{
+                  span: 24
+                }}
+              >
+                <Form.Item
+                  label='Họ và Tên'
+                  name='name'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Vui lòng nhập họ tên!'
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label='Số điện thoại'
+                  name='phone'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Vui lòng nhập số điện thoại!'
+                    },
+                    {
+                      min: 10,
+                      message: 'Số điện thoại chỉ có 10 hoặc 11 ký tự!'
+                    },
+                    {
+                      max: 11,
+                      message: 'Số điện thoại chỉ có 10 hoặc 11 ký tự!'
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item label='Lời nhắn' name='message'>
                   <TextArea
                     showCount
                     maxLength={100}
-                    onChange={onChange}
-                    placeholder='disable resize'
+                    placeholder='Lời nhắn của bạn'
                     style={{
                       height: 120,
                       resize: 'none',
                       marginBottom: '4px'
                     }}
                   />
-                </div>
-                <ButtonCustom>Send Message</ButtonCustom>
-              </form>
+                </Form.Item>
+                <Form.Item>
+                  <ButtonCustom htmlType='submit'> Gửi</ButtonCustom>
+                </Form.Item>
+              </Form>
             </div>
             <div>
-              <h3 className='text-2xl font-bold mb-6'>Contact Information</h3>
+              <h3 className='text-2xl font-bold mb-6'>Thông tin</h3>
               <div className='space-y-4'>
                 <p className='flex items-center'>
                   <span className='font-bold mr-2'>Address:</span> 85 Nguyễn Văn Nghi, Phường 7, Quận Gò Vấp, TP.HCM
