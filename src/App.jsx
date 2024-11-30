@@ -10,6 +10,8 @@ import PrivateLayout from '~/layout/PrivateLayout'
 import Course from '~/pages/Admin/Course'
 import Contact from '~/pages/Admin/Contact'
 import News from '~/pages/Admin/News'
+import AddNews from '~/pages/Admin/AddNews'
+import UpdateNews from '~/pages/Admin/UpdateNews'
 
 function App() {
   const router = createBrowserRouter([
@@ -32,7 +34,9 @@ function App() {
         { path: '/admin', element: <Course /> },
         { path: '/admin/course', element: <Course /> },
         { path: '/admin/contact', element: <Contact /> },
-        { path: '/admin/news', element: <News /> }
+        { path: '/admin/news', element: <News /> },
+        { path: '/admin/add-news', element: <AddNews /> },
+        { path: '/admin/update-news/:_id', element: <UpdateNews /> }
       ]
     }
   ])
