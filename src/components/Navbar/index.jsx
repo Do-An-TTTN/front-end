@@ -1,8 +1,9 @@
 import { message } from 'antd'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-scroll'
 import authAPI from '~/api/authAPI'
+import cateAPI from '~/api/cateAPI'
 import ModalLogin from '~/components/Navbar/ModalLogin'
 import ButtonCustom from '~/components/ui/Button'
 import { AuthContext } from '~/context/AuthContext'
@@ -12,6 +13,7 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [listCate, setListCate] = useState([])
 
   const navigate = useNavigate()
 
@@ -29,6 +31,19 @@ const Navbar = () => {
     navigate('/', { state: { scrollTo: 'contact' } })
   }
 
+  const fetchData = async () => {
+    try {
+      const res = await cateAPI.getAllCate()
+      setListCate(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <>
       <nav className='bg-white shadow-lg fixed top-0 w-full z-50'>
@@ -40,29 +55,29 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
 
-            <div className='hidden md:flex space-x-8 font-bold md:items-center'>
-              <NavLink href='/' className='text-gray-700 hover:text-red-600 transition duration-300'>
+            <div className='hidden md:flex space-x-8 md:items-center'>
+              <NavLink href='/' className='hover:text-red-600 transition duration-300'>
                 Home
               </NavLink>
-              <NavLink to='/course' className='text-gray-700 hover:text-red-600 transition duration-300'>
-                Programs
+              <NavLink to='/news' className='text-gray-700 hover:text-red-600 transition duration-300'>
+                News
               </NavLink>
               <div className='relative group'>
-                <NavLink to='/news' className='text-gray-700 hover:text-red-600 transition duration-300'>
-                  News
-                </NavLink>
-                <div className='absolute left-0 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
+                <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
+                  Course
+                </a>
+                <div className='absolute left-0 w-52 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
                   <ul className='py-2'>
-                    <li>
-                      <a href='/feartured-news' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
-                        Feartured news
-                      </a>
-                    </li>
-                    <li>
-                      <a href='/events' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
-                        Events
-                      </a>
-                    </li>
+                    {listCate?.length > 0 &&
+                      listCate.map((cate) => (
+                        <>
+                          <li>
+                            <NavLink to={`/course/${cate._id}`} className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
+                              {cate.title}
+                            </NavLink>
+                          </li>
+                        </>
+                      ))}
                   </ul>
                 </div>
               </div>

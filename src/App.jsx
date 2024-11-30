@@ -13,7 +13,7 @@ import News from '~/pages/Guest/News'
 import AddNews from '~/pages/Admin/AddNews'
 import UpdateNews from '~/pages/Admin/UpdateNews'
 import AdminNews from '~/pages/Admin/News'
-import DetailNews from '~/pages/Guest/News/id/id'
+import DetailNews from '~/pages/Guest/News/Detail/_id'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,7 +22,7 @@ function App() {
       element: <RootLayout />,
       children: [
         { path: '/', element: <HomePage /> },
-        { path: '/course', element: <CoursePage /> },
+        { path: '/course/:_id', element: <CoursePage /> },
         { path: '/our-company', element: <OurCompany /> },
         { path: '/our-team', element: <OurTeam /> },
         { path: '/feartured-news', element: <FeaturedNews /> },
