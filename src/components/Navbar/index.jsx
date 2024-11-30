@@ -48,9 +48,9 @@ const Navbar = () => {
                 Programs
               </NavLink>
               <div className='relative group'>
-                <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
+                <NavLink to='/news' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   News
-                </a>
+                </NavLink>
                 <div className='absolute left-0 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
                   <ul className='py-2'>
                     <li>

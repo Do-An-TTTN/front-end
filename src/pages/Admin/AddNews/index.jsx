@@ -10,6 +10,7 @@ import { AuthContext } from '~/context/AuthContext'
 import ModalGallery from '~/pages/Admin/AddNews/ModalGallery'
 import handleUploadImage from '~/utils/handleUploadImage'
 import { NavLink } from 'react-router-dom'
+import TextArea from 'antd/es/input/TextArea'
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader()
@@ -27,7 +28,8 @@ export default function AddNews() {
     writerId: '',
     title: '',
     image: '',
-    description: ''
+    description: '',
+    content: ''
   }
   const [dataNews, setDataNews] = useState(dataNewsDefault)
 
@@ -120,9 +122,22 @@ export default function AddNews() {
               <input required className='hidden' type='file' onChange={handleImgThumbnail} id='img' accept='image/png,image/jpeg' />
             </div>
           </div>
+          <div className='mb-6'>
+            <span className='text-md font-medium text-gray-600'>Description</span>
+            <TextArea
+              showCount
+              placeholder='Mô tả'
+              style={{
+                height: 120,
+                resize: 'none'
+              }}
+              value={dataNews?.description}
+              onChange={(e) => handleChangeInput('description', e.target.value)}
+            />
+          </div>
           <div className='flex flex-col gap-y-2 mb-6'>
             <div className='flex justify-start items-center gap-x-2'>
-              <span className='text-md font-medium text-gray-600'>Description</span>
+              <span className='text-md font-medium text-gray-600'>Content</span>
               <div onClick={() => setShow(true)}>
                 <span className='text-2xl cursor-pointer'>
                   <MdCloudUpload />
@@ -130,7 +145,7 @@ export default function AddNews() {
               </div>
             </div>
             <div>
-              <JoditEditor ref={editor} tabIndex={1} value={dataNews.description} onBlur={(value) => handleChangeInput('description', value)} />
+              <JoditEditor ref={editor} tabIndex={1} value={dataNews?.content} onBlur={(value) => handleChangeInput('content', value)} />
             </div>
           </div>
 

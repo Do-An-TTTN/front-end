@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import newsAPI from '~/api/newsAPI'
 import ButtonCustom from '~/components/ui/Button'
 
-export default function News() {
+export default function AdminNews() {
   const [paginationSize, setPaginationSize] = useState(20) //your current default pagination size 25
   const [page, setPage] = useState(1)
 
