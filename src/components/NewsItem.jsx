@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom'
 export default function NewsItem({ item }) {
   return (
     <div className='flex flex-col md:flex-row gap-4 border-b border-gray-200 pb-4 mb-4 last:border-b-0 last:mb-0 last:pb-0'>
-      <div className=''>
-        <Image src={item?.image} width={300} height={200} className='w-full h-48 object-cover rounded-lg' />
-      </div>
+      <NavLink to={`/news/${item._id}`}>
+        <Image src={item?.image} width={300} height={200} preview={false} className='w-full h-48 object-cover rounded-lg' />
+      </NavLink>
       <div className=''>
         <h2 className='w-full text-xl font-bold mb-2 text-gray-800 hover:text-blue-600 transition-colors'>
           <NavLink to={`/news/${item._id}`}>{item?.title}</NavLink>

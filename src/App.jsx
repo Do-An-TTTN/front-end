@@ -3,7 +3,6 @@ import HomePage from './pages/Guest/Home'
 import CoursePage from './pages/Guest/Course'
 import RootLayout from './layout/RootLayout'
 import OurCompany from '~/pages/Guest/About/OurCompany'
-import OurTeam from '~/pages/Guest/About/OurTeam'
 import FeaturedNews from './pages/Guest/News/FearturedNews'
 import EventsPage from './pages/Guest/News/EventsPage'
 import PrivateLayout from '~/layout/PrivateLayout'
@@ -24,7 +23,6 @@ function App() {
         { path: '/', element: <HomePage /> },
         { path: '/course/:_id', element: <CoursePage /> },
         { path: '/our-company', element: <OurCompany /> },
-        { path: '/our-team', element: <OurTeam /> },
         { path: '/feartured-news', element: <FeaturedNews /> },
         { path: '/events', element: <EventsPage /> },
         { path: '/news', element: <News /> },
