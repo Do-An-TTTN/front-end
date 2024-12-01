@@ -3,42 +3,42 @@ const OurTeam = () => {
     {
       id: 1,
       name: 'Mr.John Paul',
-      subject: 'English Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrjohnpaul@example.com',
       image: 'images.unsplash.com/photo-1494790108377-be9c29b29330',
     },
     {
       id: 2,
       name: 'Mrs.Loan',
-      subject: 'German Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrsloan@example.com',
       image: 'images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
     },
     {
       id: 3,
       name: 'Mr.Danh',
-      subject: 'French Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrdanh@example.com',
       image: 'images.unsplash.com/photo-1438761681033-6461ffad8d80',
     },
     {
       id: 4,
       name: 'Mrs.Thuy Ngoc',
-      subject: 'Spanish Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrsthuyngoc@example.com',
       image: 'images.unsplash.com/photo-1494790108377-be9c29b29330',
     },
     {
       id: 5,
       name: 'Mrs.Phuong Vi',
-      subject: 'English Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrsphuongvi@example.com',
       image: 'images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
     },
     {
       id: 6,
       name: 'Mr.Khanh Thai',
-      subject: 'Chinese Teacher',
+      subject: 'Giáo viên tiếng Anh',
       email: 'mrkhanhthai@example.com',
       image: 'images.unsplash.com/photo-1438761681033-6461ffad8d80',
     },
@@ -51,11 +51,11 @@ const OurTeam = () => {
         <section className='bg-gray-800 text-white py-20 mb-12'>
           <div className='container mx-auto text-center mt-24'>
             <h1 className='text-5xl font-bold mb-4 text-red-600'>
-              Our Teachers
+              Đội ngũ giáo viên
             </h1>
             <p className='text-lg mb-8'>
-              Empowering students to achieve their goals with world-class
-              languages education.
+              Trợ giúp học viên đạt được mục tiêu ngôn ngữ với chương trình giáo
+              dục mang tầm quốc tế
             </p>
           </div>
         </section>
