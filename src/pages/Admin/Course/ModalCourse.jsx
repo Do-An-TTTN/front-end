@@ -189,7 +189,7 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
             onChange={(value) => {
               handleChangeInput('categoryId', value)
             }}
-            value={dataCourse?.categoryId?._id}
+            value={dataCourse?.categoryId?.title}
             status={!validInput.categoryId && 'error'}
             options={listCate.map((item) => {
               return {

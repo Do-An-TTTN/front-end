@@ -8,7 +8,7 @@ import SideMenu from '~/pages/Admin/SideMenu'
 
 function PrivateLayout() {
   const { currentUser } = useContext(AuthContext)
-  if (!currentUser && currentUser.role !== 'admin') {
+  if (!currentUser || currentUser.role !== 'admin') {
     return <Navigate to='/' />
   } else {
     return (
