@@ -7,21 +7,21 @@ const Footer = () => {
         <div className='container mx-auto px-4'>
           <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
             <div>
-              <h4 className='text-xl font-bold mb-4'>About Us</h4>
+              <h4 className='text-xl font-bold mb-4'>Về chúng tôi</h4>
               <p className='text-gray-300'>
-                We are dedicated to providing high-quality online language
-                courses to help you achieve your learning goals.
+                Chúng tôi tận tâm cung cấp các khóa học ngôn ngữ trực tuyến chất
+                lượng cao để giúp bạn đạt được mục tiêu học tập của mình.
               </p>
             </div>
             <div>
-              <h4 className='text-xl font-bold mb-4'>Quick Links</h4>
+              <h4 className='text-xl font-bold mb-4'>Truy cập nhanh</h4>
               <ul className='space-y-2'>
                 <li>
                   <a
                     href='#'
                     className='text-gray-300 hover:text-white transition-colors'
                   >
-                    Courses
+                    Khóa học
                   </a>
                 </li>
                 <li>
@@ -29,7 +29,7 @@ const Footer = () => {
                     href='#'
                     className='text-gray-300 hover:text-white transition-colors'
                   >
-                    Instructors
+                    Giáo viên
                   </a>
                 </li>
                 <li>
@@ -37,7 +37,7 @@ const Footer = () => {
                     href='#'
                     className='text-gray-300 hover:text-white transition-colors'
                   >
-                    Resources
+                    Tài liệu
                   </a>
                 </li>
                 <li>
@@ -45,23 +45,23 @@ const Footer = () => {
                     href='#'
                     className='text-gray-300 hover:text-white transition-colors'
                   >
-                    Contact
+                    Liên hệ
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className='text-xl font-bold mb-4'>Contact Info</h4>
+              <h4 className='text-xl font-bold mb-4'>Thông tin liên hệ</h4>
               <ul className='space-y-2 text-gray-300'>
                 <li>Email: info@dn5sao.edu.vn</li>
-                <li>Phone: 0938 762 783</li>
+                <li>Số điện thoại: 0938 762 783</li>
                 <li>
-                  Address: 85 Nguyễn Văn Nghi, Phường 7, Quận Gò Vấp, TP.HCM
+                  Địa chỉ: 85 Nguyễn Văn Nghi, Phường 7, Quận Gò Vấp, TP.HCM
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className='text-xl font-bold mb-4'>Follow Us</h4>
+              <h4 className='text-xl font-bold mb-4'>Theo dõi chúng tôi tại</h4>
               <div className='flex space-x-4'>
                 <a
                   href='#'

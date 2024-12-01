@@ -10,61 +10,60 @@ const HomePage = () => {
   const programs = [
     {
       id: 1,
-      title: 'General English',
-      description: 'Master everyday English communication with our comprehensive program.',
-      features: ['Interactive Classes', 'Native Speakers', 'Practical Exercises'],
-      image: 'images.unsplash.com/photo-1523050854058-8df90110c9f1'
+      title: 'Tiếng Anh thiếu nhi',
+      description:
+        'Xây dựng nền tảng tiếng Anh vững chắc ngay khi còn nhỏ cho bé.',
+      features: [
+        'Luyện phát âm giọng chuẩn',
+        'Ôn luyện ngữ pháp theo sách giáo khoa ở trường',
+        'Phát huy toàn diện 4 kỹ năng nghe - nói - đọc - viết',
+        'Đảm bảo chuẩn đầu ra của Đại học Cambridge',
+      ],
+      image: 'tienganhthieunhi.jpg',
     },
     {
       id: 2,
-      title: 'Business English',
-      description: 'Develop professional English skills for the corporate world.',
-      features: ['Business Writing', 'Presentation Skills', 'Networking'],
-      image: 'images.unsplash.com/photo-1553877522-43269d4ea984'
+      title: 'IELTS',
+      description:
+        'Chuẩn bị cho kỳ thi IELTS với sự hướng dẫn tận tình từ đội ngũ giáo viên giàu kinh nghiệm',
+      features: [
+        'Đảm bảo chuẩn đầu ra IELTS từ 6.',
+        'Luyện phát âm với giáo viên bản xứ',
+        'Phát huy toàn diện 4 kỹ năng nghe - nói - đọc - viết',
+        'Tham gia các Mock Test để đánh giá kỹ năng',
+      ],
+      image: 'ielts.jpg',
     },
     {
       id: 3,
-      title: 'Exam Preparation',
-      description: 'Get ready for IELTS, TOEFL, and Cambridge exams with expert guidance.',
-      features: ['Mock Test', 'Study Materials', 'Expert Tips'],
-      image: 'images.unsplash.com/photo-1434030216411-0b793f4b4173'
-    }
-  ]
-
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      image: 'images.unsplash.com/photo-1494790108377-be9c29b29330',
-      text: 'The teaching quality here is exceptional. I improved my English significantly!'
+      title: 'PTE',
+      description:
+        'Cách nhanh hơn và công bằng hơn để chứng minh trình độ tiếng Anh của bạn. Nhận kết quả chỉ trong 48 giờ.',
+      features: [
+        '100% học với giáo viên bản xứ',
+        'Học online hoặc trực tiếp tại trung tâm',
+        'Đảm bảo chuẩn đầu ra như cam kết',
+      ],
+      image: 'PTE.jpg',
     },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      image: 'images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-      text: 'Great environment and supportive teachers. Highly recommended!'
-    },
-    {
-      id: 3,
-      name: 'Emma Rodriguez',
-      image: 'images.unsplash.com/photo-1438761681033-6461ffad8d80',
-      text: 'The business English program helped me advance in my career.'
-    }
   ]
 
   const events = [
     {
       id: 1,
-      title: 'Free Speaking Workshop',
-      date: '2024-02-15',
-      description: 'Join our interactive speaking workshop and practice with native speakers.'
+      title: 'Khai giảng lớp tiếng Anh thiếu nhi',
+      image: 'sukientienganhthieunhi.jpg',
+      date: '2024-02-12',
+      description:
+        'Khai giảng các lớp tiếng Anh thiếu nhi dành cho các bé từ 5-11 tuổi',
     },
     {
       id: 2,
-      title: 'IELTS Preparation Seminar',
-      date: '2024-02-20',
-      description: 'Learn essential tips and strategies for IELTS success.'
-    }
+      title: 'Lễ khai giảng lớp tiếng Đức',
+      image: 'khaigiang.jpg',
+      date: '2024-12-10',
+      description: 'Khai giảng lớp tiếng Đức',
+    },
   ]
 
   useEffect(() => {
@@ -83,7 +82,7 @@ const HomePage = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 
@@ -101,18 +100,70 @@ const HomePage = () => {
   return (
     <div className='font-sans'>
       {/* Hero Section */}
-      <section className='relative h-screen'>
+      <section className='relative h-[500px] mt-16'>
+        {' '}
         <div className='absolute inset-0'>
-          <img src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655' alt='English Learning Environment' className='w-full h-full object-cover' />
-          <div className='absolute inset-0 bg-black bg-opacity-50'></div>
+          <img
+            src='/images/hero.jpg'
+            alt='English Learning Environment'
+            className='w-full h-full object-contain'
+          />
+          <div className='absolute inset-0 bg-black bg-opacity-10'></div>
         </div>
-        <div className='relative container mx-auto px-4 h-full flex items-center'>
-          <div className='text-white max-w-3xl'>
-            <h1 className='text-5xl md:text-6xl font-bold mb-6'>Excel in English with Expert Guidance</h1>
-            <p className='text-xl mb-8'>Join our world-class English language programs and unlock your potential</p>
-            <a className='bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 cursor-pointer' href='/course'>
-              Explore Programs
-            </a>
+      </section>
+
+      <section
+        className='GT section flex items-center justify-center min-h-screen bg-gray-100'
+        id='GT'
+      >
+        <div className='container max-w-5xl text-center p-3'>
+          <h1 className='text-4xl mb-10 font-bold text-red-600'>
+            Trung tâm Anh ngữ Star xin chào bạn
+          </h1>
+          <div className='intro-content flex items-center justify-center space-x-4'>
+            <img
+              src='/images/taytrai.png'
+              alt='Bàn tay bên trái'
+              className='hand left-hand w-1/3 h-auto'
+            />
+            <img
+              className='intro-image w-1/2 h-auto'
+              src='/images/ThuNgoStar.png'
+              alt='Giới Thiệu Image'
+              onClick='openModal(this)'
+            />
+            <img
+              src='/images/tayphai.png'
+              alt='Bàn tay bên phải'
+              className='hand right-hand w-1/3 h-auto'
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className='bg-gray-50 py-12'>
+        <div className='container mx-auto px-4'>
+          {/* Section Heading */}
+          <div className='text-center mb-12'>
+            <h1 className='text-4xl font-bold text-red-600'>
+              Anh văn Thiếu nhi
+            </h1>
+          </div>
+
+          {/* Grid Layout for Images */}
+          <div className='intro-content flex items-center justify-center space-x-4 mx-10'>
+            <img
+              className='intro-image w-1/2 h-auto'
+              src='/images/chitietchuongtrinh.jpg'
+              alt='Chi tiết chương trình'
+              onClick='openModal(this)'
+            />
+            <img
+              className='intro-image w-1/2 h-auto'
+              src='/images/sukientienganhthieunhi.jpg'
+              alt='Khai giảng lớp tiếng Anh thiếu nhi'
+              onClick='openModal(this)'
+            />
           </div>
         </div>
       </section>
@@ -120,11 +171,20 @@ const HomePage = () => {
       {/* Programs Section */}
       <section className='py-20 bg-gray-50'>
         <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Our Programs</h2>
+          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>
+            Chương trình của chúng tôi
+          </h2>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
             {programs.map((program) => (
-              <div key={program.id} className='bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300'>
-                <img src={`https://${program.image}`} alt={program.title} className='w-full h-48 object-cover' />
+              <div
+                key={program.id}
+                className='bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300'
+              >
+                <img
+                  src={`/images/${program.image}`}
+                  alt={program.title}
+                  className='w-full h-48 object-cover'
+                />
                 <div className='p-6'>
                   <h3 className='text-2xl font-bold mb-4'>{program.title}</h3>
                   <p className='text-gray-600 mb-4'>{program.description}</p>
@@ -136,26 +196,8 @@ const HomePage = () => {
                       </li>
                     ))}
                   </ul>
-                  <ButtonCustom>Learn More</ButtonCustom>
+                  <ButtonCustom>Xem chi tiết</ButtonCustom>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className='py-20'>
-        <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Student Testimonials</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className='bg-white p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105'>
-                <div className='flex items-center mb-4'>
-                  <img src={`https://${testimonial.image}`} alt={testimonial.name} className='w-12 h-12 rounded-full object-cover mr-4' />
-                  <h3 className='font-bold'>{testimonial.name}</h3>
-                </div>
-                <p className='text-gray-600'>{testimonial.text}</p>
               </div>
             ))}
           </div>
@@ -165,14 +207,30 @@ const HomePage = () => {
       {/* Events Section */}
       <section className='py-20 bg-gray-50'>
         <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Upcoming Events</h2>
+          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>
+            Sự kiện sắp tới
+          </h2>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             {events.map((event) => (
-              <div key={event.id} className='bg-white p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105'>
+              <div
+                key={event.id}
+                className='bg-white p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105'
+              >
+                {/* Image Section */}
+                <img
+                  src={`/images/${event.image}`}
+                  alt={event.title}
+                  className='w-full h-48 object-cover rounded-t-lg mb-4'
+                />
+
+                {/* Event Content */}
                 <h3 className='text-2xl font-bold mb-2'>{event.title}</h3>
-                <p className='text-red-600 mb-4'>{new Date(event.date).toLocaleDateString()}</p>
+                <p className='text-red-600 mb-4'>
+                  {new Date(event.date).toLocaleDateString()}
+                </p>
                 <p className='text-gray-600 mb-6'>{event.description}</p>
-                <ButtonCustom>Register Now</ButtonCustom>
+
+                <ButtonCustom>Xem chi tiết</ButtonCustom>
               </div>
             ))}
           </div>
@@ -194,7 +252,10 @@ const HomePage = () => {
 
       {/* Scroll to Top Button */}
       {isVisible && (
-        <button onClick={scrollToTop} className='fixed bottom-8 right-8 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300'>
+        <button
+          onClick={scrollToTop}
+          className='fixed bottom-8 right-8 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300'
+        >
           <IoIosArrowUp size={24} />
         </button>
       )}

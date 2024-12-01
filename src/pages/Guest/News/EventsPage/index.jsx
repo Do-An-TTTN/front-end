@@ -4,9 +4,9 @@ const EventsPage = () => {
       {/* Hero Section */}
       <section className='relative bg-gray-800 text-white py-20'>
         <div className='container mx-auto px-4 text-center mt-24'>
-          <h1 className='text-5xl font-bold mb-4 text-red-600'>Events</h1>
+          <h1 className='text-5xl font-bold mb-4 text-red-600'>Sự kiện</h1>
           <p className='text-lg mb-8'>
-            Some incredible events at out Star Foreign Language Center
+            Một vài sự kiện nổi bật tại Trung tâm Anh ngữ Star
           </p>
         </div>
       </section>

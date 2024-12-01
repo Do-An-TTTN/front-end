@@ -2,21 +2,21 @@ const OurCompany = () => {
   const infos = [
     {
       id: 1,
-      title: 'Experienced Teachers',
+      title: 'Đội ngũ giáo viên giàu kinh nghiệm',
       description:
-        'The teaching staff at Star Foreign Language Center are highly qualified and experienced in teaching. They are not only fluent in languages ​​but also thoroughly trained in modern teaching methods, always dedicated and enthusiastic about students development.',
+        'Đội ngũ giảng viên tại Trung tâm Anh ngữ Star đều có trình độ chuyên môn cao và giàu kinh nghiệm giảng dạy. Họ không chỉ thông thạo ngoại ngữ mà còn được đào tạo bài bản về phương pháp giảng dạy hiện đại, luôn tận tâm và nhiệt tình phát triển học viên.',
     },
     {
       id: 2,
-      title: 'Flexible Programs',
+      title: 'Chương trình đa dạng',
       description:
-        'Star Foreign Language Center offers a variety of foreign language courses, from English, Japanese, Korean to Chinese, French... We design programs suitable for each audience, from children , students to working people, helping everyone have the opportunity to improve their foreign language skills.',
+        'Trung tâm Anh ngữ Star cung cấp đa dạng các khóa học tiếng Anh dành cho mọi lứa tuổi... Chúng tôi thiết kế chương trình phù hợp với từng đối tượng, từ trẻ em, sinh viên đến người đi làm, giúp mọi người có cơ hội nâng cao trình độ tiếng Anh của mình.',
     },
     {
       id: 3,
-      title: 'Modern Facilities',
+      title: 'Cơ sở vật chất hiện đại',
       description:
-        'At Star Foreign Language Center, students will study in a modern, comfortable space with spacious, airy classrooms, fully equipped with learning support equipment such as projectors, speakers, and bulletin boards... This is the ideal environment for you to feel comfortable and focus on your studies.',
+        'Tại Trung tâm Anh ngữ Star, học viên sẽ được học trong không gian hiện đại, tiện nghi với phòng học rộng rãi, thoáng mát, được trang bị đầy đủ các thiết bị hỗ trợ học tập như máy chiếu, loa, bảng tin… Đây là môi trường lý tưởng để các bạn cảm thấy thoải mái và tự tin, tập trung hoàn toàn vào việc học của bạn',
     },
   ]
 
@@ -27,11 +27,11 @@ const OurCompany = () => {
         <section className='relative bg-gray-800 text-white py-20'>
           <div className='container mx-auto px-4 text-center mt-24'>
             <h1 className='text-5xl font-bold mb-4 text-red-600'>
-              Welcome to Star Foreign Language Center
+              Chào mừng đến với Trung tâm Anh ngữ Star
             </h1>
             <p className='text-lg mb-8'>
-              Empowering students to achieve their goals with world-class
-              languages education.
+              languages education. Giúp học viên đạt được mục tiêu ngôn ngữ với
+              chương trình giáo dục tầm quốc tế.
             </p>
           </div>
         </section>
@@ -41,17 +41,17 @@ const OurCompany = () => {
           <div className='container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8'>
             <div>
               <h2 className='text-4xl font-bold mb-4 text-red-600'>
-                About Star Foreign Language Center
+                Về Trung tâm Anh ngữ Star
               </h2>
               <p className='text-gray-700 mb-4'>
-                Star Foreign Language Center - Where Your Language Potential Is
-                Unleashed. Are you looking for a place to improve your foreign
-                language skills? Come to Star Foreign Language Center - a
-                prestigious and top quality address in Vietnam.
+                Trung Tâm Anh Ngữ Star - Nơi Tiềm Năng Ngôn Ngữ Của Bạn Được
+                Giải phóng. Bạn đang tìm kiếm một nơi để nâng cao trình độ ngoại
+                ngữ của mình? Hãy đến với Trung tâm Anh ngữ Star - một địa chỉ
+                uy tín, chất lượng hàng đầu Việt Nam.
               </p>
               <p className='text-gray-700'>
-                From IELTS preparation to general English courses, we provide a
-                wide range of programs tailored to meet every need.
+                Từ luyện thi IELTS đến các khóa học tiếng Anh tổng quát, chúng
+                tôi cung cấp nhiều chương trình phong phú đáp ứng mọi nhu cầu.
               </p>
             </div>
             <img
@@ -66,7 +66,7 @@ const OurCompany = () => {
         <section className='py-20 bg-white'>
           <div className='container mx-auto px-4 text-center'>
             <h2 className='text-4xl font-bold mb-8 text-red-600'>
-              Why Choose Star Foreign Language Center?
+              Tại sao lại chọn học tại Trung tâm Anh ngữ Star?
             </h2>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
               {infos.map((info) => (
@@ -96,14 +96,14 @@ const OurCompany = () => {
           </div>
           <div className='relative container mx-auto px-4 h-96 flex flex-col items-center justify-center'>
             <h2 className='text-5xl font-bold mb-4'>
-              Join Star English Center Today!
+              Đăng ký học tại Trung tâm Anh ngữ Star ngay hôm nay!
             </h2>
             <p className='text-2xl mb-8'>
-              Star Foreign Language Center - A place to form and develop your
-              language abilities!
+              Trung tâm Anh ngữ Star - Nơi trau dồi và phát triển tiềm năng ngôn
+              ngữ của bạn!
             </p>
             <button className='px-6 py-3 bg-red-600 rounded-lg hover:bg-gray-100 hover:text-red-600 transition'>
-              Contact Us
+              Liên hệ với chúng tôi
             </button>
           </div>
         </section>
