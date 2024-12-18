@@ -1,4 +1,4 @@
-import { Input, message, Spin } from 'antd'
+import { Input, message } from 'antd'
 import JoditEditor from 'jodit-react'
 import { useEffect, useRef, useState } from 'react'
 import { MdCloudUpload } from 'react-icons/md'
@@ -7,22 +7,15 @@ import { FaArrowLeft } from 'react-icons/fa'
 import newsAPI from '~/api/newsAPI'
 import ButtonCustom from '~/components/ui/Button'
 import ModalGallery from '~/pages/Admin/AddNews/ModalGallery'
-import handleUploadImage from '~/utils/handleUploadImage'
 import { NavLink, useParams } from 'react-router-dom'
 import TextArea from 'antd/es/input/TextArea'
 
-const getBase64 = (img, callback) => {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => callback(reader.result))
-  reader.readAsDataURL(img)
-}
 export default function UpdateNews() {
-  const { _id } = useParams()
+  const { id } = useParams()
 
   const [loading, setLoading] = useState(false)
-  const [loadThumbnail, setLoadThumbnail] = useState(false)
   const [show, setShow] = useState(false)
-  const [images, setImages] = useState([])
+  const [singleImage, setSingleImage] = useState(null)
 
   const dataNewsDefault = {
     writerId: '',
@@ -43,38 +36,45 @@ export default function UpdateNews() {
   const editor = useRef(null)
 
   const handleImgThumbnail = (e) => {
-    const { files } = e.target
-    setLoadThumbnail(true)
-    if (files.length > 0) {
-      getBase64(files[0], async (url) => {
-        const secureUrl = await handleUploadImage(url)
-        handleChangeInput('image', secureUrl)
-        setLoadThumbnail(false)
-      })
+    const file = e.target.files[0]
+    if (file) {
+      setSingleImage(file)
+      handleChangeInput('image', URL.createObjectURL(file))
     }
   }
 
-  const handleImgsDesc = async (e) => {
-    const files = e.target.files
-    await Promise.all(
-      Array.from(files).map((file) => {
-        const arrImages = []
-        getBase64(file, async (url) => {
-          const secureUrl = await handleUploadImage(url)
-          arrImages.push(secureUrl)
-          setImages((prev) => [...prev, ...arrImages])
-        })
+  const handleSingleImageUpload = async () => {
+    if (!singleImage) {
+      message.error('Please select a single image.')
+      return
+    }
+    const formData = new FormData()
+    formData.append('image', singleImage)
+    try {
+      const response = await fetch('http://localhost:4000/api/upload/news/single', {
+        method: 'POST',
+        body: formData
       })
-    )
+
+      const data = await response.json()
+      if (data.imageUrl) {
+        handleChangeInput('image', data.imageUrl)
+      } else {
+        message.error('Upload failed')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleSubmitForm = async () => {
     try {
+      await handleSingleImageUpload()
       setLoading(true)
-      const res = await newsAPI.updateNews(_id, { ...dataNews })
+      const res = await newsAPI.updateNews(id, { ...dataNews })
       message.success(res.message)
-      setImages([])
       fetchData()
+      setSingleImage(null)
     } catch (error) {
       message.error(error.response.data.message)
     } finally {
@@ -84,7 +84,7 @@ export default function UpdateNews() {
 
   const fetchData = async () => {
     try {
-      const res = await newsAPI.getNews(_id)
+      const res = await newsAPI.getNews(id)
       setDataNews(res.data)
     } catch (error) {
       message.error(error.response.data.message)
@@ -93,7 +93,7 @@ export default function UpdateNews() {
 
   useEffect(() => {
     fetchData()
-  }, [_id])
+  }, [id])
 
   return (
     <>
@@ -119,16 +119,10 @@ export default function UpdateNews() {
                   <img src={dataNews?.image} className='w-full h-full' alt='image' />
                 ) : (
                   <div className='flex justify-center items-center flex-col gap-y-2'>
-                    {loadThumbnail ? (
-                      <Spin size='large' />
-                    ) : (
-                      <>
-                        <span className='text-2xl'>
-                          <MdCloudUpload />
-                        </span>
-                        <span>Select Image</span>
-                      </>
-                    )}
+                    <span className='text-2xl'>
+                      <MdCloudUpload />
+                    </span>
+                    <span>Select Image</span>
                   </div>
                 )}
               </label>
@@ -166,8 +160,7 @@ export default function UpdateNews() {
             {loading ? 'loading...' : 'Sửa bài đăng'}
           </ButtonCustom>
         </form>
-        <input onChange={handleImgsDesc} type='file' multiple id='images' className='hidden' />
-        <ModalGallery show={show} setShow={setShow} images={images} />
+        <ModalGallery show={show} setShow={setShow} />
       </div>
     </>
   )

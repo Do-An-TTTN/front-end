@@ -1,4 +1,4 @@
-import { Image, Popconfirm, Table } from 'antd'
+import { Image, message, Popconfirm, Table } from 'antd'
 import { useEffect, useState } from 'react'
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
@@ -8,23 +8,28 @@ import newsAPI from '~/api/newsAPI'
 import ButtonCustom from '~/components/ui/Button'
 
 export default function AdminNews() {
-  const [paginationSize, setPaginationSize] = useState(20) //your current default pagination size 25
   const [page, setPage] = useState(1)
 
   const [listNews, setListNews] = useState([])
+
+  const handleDelete = async (id) => {
+    await newsAPI.deleteNews(id)
+    message.success('Xóa thành công')
+    fetchData()
+  }
 
   const columns = [
     {
       title: 'No',
       key: 'index',
       width: '20px',
-      render: (text, record, index) => (page - 1) * paginationSize + index + 1
+      render: (text, record, index) => (page - 1) * 20 + index + 1
     },
     {
       title: 'Thumbnail',
       dataIndex: 'image',
       render: (data) => {
-        return <Image width={80} src={data} />
+        return <Image preview={false} width={80} src={data} />
       }
     },
     {
@@ -36,9 +41,9 @@ export default function AdminNews() {
     },
     {
       title: 'Tác giả',
-      dataIndex: 'writerId',
-      render: (writerId) => {
-        return <>{writerId.name}</>
+      dataIndex: 'User',
+      render: (User) => {
+        return <>{User.name}</>
       }
     },
     {
@@ -53,10 +58,10 @@ export default function AdminNews() {
       render: (data) => {
         return (
           <div className='flex gap-3'>
-            <NavLink to={`/admin/update-news/${data._id}`}>
+            <NavLink to={`/admin/update-news/${data.id}`}>
               <FaEdit className='text-2xl cursor-pointer text-yellow-500' />
             </NavLink>
-            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' okText='Yes' cancelText='No'>
+            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' okText='Yes' cancelText='No' onConfirm={() => handleDelete(data.id)}>
               <FaRegTrashAlt className='text-2xl cursor-pointer text-red-500' />
             </Popconfirm>
           </div>

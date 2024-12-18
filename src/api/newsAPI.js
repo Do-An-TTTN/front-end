@@ -9,13 +9,17 @@ const newsAPI = {
     const url = '/api/news'
     return axiosClient.post(url, data)
   },
-  getNews: (_id) => {
-    const url = `/api/news/${_id}`
+  getNews: (id) => {
+    const url = `/api/news/${id}`
     return axiosClient.get(url)
   },
-  updateNews: (_id, data) => {
-    const url = `/api/news/${_id}`
+  updateNews: (id, data) => {
+    const url = `/api/news/${id}`
     return axiosClient.put(url, data)
+  },
+  deleteNews: (id) => {
+    const url = `/api/news/${id}`
+    return axiosClient.delete(url)
   }
 }
 export default newsAPI

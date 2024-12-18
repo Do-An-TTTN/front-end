@@ -9,12 +9,12 @@ const courseAPI = {
     const url = '/api/course'
     return axiosClient.get(url)
   },
-  updateCourse: (_id, data) => {
-    const url = `/api/course/${_id}`
+  updateCourse: (id, data) => {
+    const url = `/api/course/${id}`
     return axiosClient.put(url, data)
   },
-  deleteCourse: (_id) => {
-    const url = `/api/course/${_id}`
+  deleteCourse: (id) => {
+    const url = `/api/course/${id}`
     return axiosClient.delete(url)
   }
 }

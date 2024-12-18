@@ -8,8 +8,8 @@ export default function Contact() {
   const [dataSource, setDataSource] = useState([])
   const [data, setData] = useState({})
 
-  const handleDelete = async (_id) => {
-    await contactAPI.deleteContact(_id)
+  const handleDelete = async (id) => {
+    await contactAPI.deleteContact(id)
     message.success('Xóa thành công')
     fetchData()
   }
@@ -29,6 +29,11 @@ export default function Contact() {
       render: (data) => <span className='line-clamp-1'>{data}</span>
     },
     {
+      title: 'Ngày liên hệ',
+      dataIndex: 'createdAt',
+      render: (data) => <span className='line-clamp-1'>{new Date(data).toLocaleDateString('vi-VN')}</span>
+    },
+    {
       title: 'Actions',
       render: (data) => {
         return (
@@ -38,10 +43,9 @@ export default function Contact() {
               onClick={() => {
                 setIsOpenModal(true)
                 setData(data)
-                // setActionModal('UPDATE')
               }}
             />
-            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' okText='Yes' cancelText='No' onConfirm={() => handleDelete(data._id)}>
+            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' okText='Yes' cancelText='No' onConfirm={() => handleDelete(data.id)}>
               <FaRegTrashAlt className='text-2xl cursor-pointer text-red-500' />
             </Popconfirm>
           </div>

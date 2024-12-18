@@ -21,12 +21,12 @@ function App() {
       element: <RootLayout />,
       children: [
         { path: '/', element: <HomePage /> },
-        { path: '/course/:_id', element: <CoursePage /> },
+        { path: '/course/:id', element: <CoursePage /> },
         { path: '/our-company', element: <OurCompany /> },
         { path: '/feartured-news', element: <FeaturedNews /> },
         { path: '/events', element: <EventsPage /> },
         { path: '/news', element: <News /> },
-        { path: '/news/:_id', element: <DetailNews /> }
+        { path: '/news/:id', element: <DetailNews /> }
       ]
     },
     {
@@ -38,7 +38,7 @@ function App() {
         { path: '/admin/contact', element: <Contact /> },
         { path: '/admin/news', element: <AdminNews /> },
         { path: '/admin/add-news', element: <AddNews /> },
-        { path: '/admin/update-news/:_id', element: <UpdateNews /> }
+        { path: '/admin/update-news/:id', element: <UpdateNews /> }
       ]
     }
   ])

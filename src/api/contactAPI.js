@@ -9,8 +9,8 @@ const contactAPI = {
     const url = '/api/contact'
     return axiosClient.get(url)
   },
-  deleteContact: (_id) => {
-    const url = `/api/contact/${_id}`
+  deleteContact: (id) => {
+    const url = `/api/contact/${id}`
     return axiosClient.delete(url)
   }
 }
