@@ -1,29 +1,12 @@
-import { Input, message, Modal, Select, Spin, Upload } from 'antd'
+import { Input, message, Modal, Select } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { useEffect, useState } from 'react'
+import { MdCloudUpload } from 'react-icons/md'
 import courseAPI from '~/api/courseAPI'
-import handleUploadImage from '~/utils/handleUploadImage'
-
-const getBase64 = (img, callback) => {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => callback(reader.result))
-  reader.readAsDataURL(img)
-}
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    message.error('Chỉ chấp nhận các định dạng: JPG/PNG')
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error('Dung lượng ảnh phải nhỏ hơn 2MB!')
-  }
-  return isJpgOrPng && isLt2M
-}
 
 export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse, fetchData, action, dataUpdate, setDataUpdate }) {
-  const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [image, setImage] = useState(null)
 
   const dataCourseDefault = {
     name: '',
@@ -46,31 +29,6 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
     categoryId: true
   }
   const [validInput, setValidInput] = useState(validInputDefault)
-
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: 'none'
-      }}
-      type='button'
-    >
-      {loading ? <Spin /> : <span>Upload</span>}
-    </button>
-  )
-
-  const handleChange = (info) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true)
-      return
-    }
-    getBase64(info.file.originFileObj, async (url) => {
-      const secure_url = await handleUploadImage(url)
-      setImageUrl(secure_url)
-      setLoading(false)
-      setDataCourse({ ...dataCourse, image: secure_url })
-    })
-  }
 
   const handleChangeInput = (name, value) => {
     setDataCourse((prev) => {
@@ -105,11 +63,15 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
   }
 
   const handleOk = async () => {
+    if (image) {
+      await handleImageUpload()
+    }
     try {
       if (checkValidInput()) {
-        const res = action === 'CREATE' ? await courseAPI.createCourse(dataCourse) : await courseAPI.updateCourse(dataUpdate._id, dataCourse)
+        const res = action === 'CREATE' ? await courseAPI.createCourse(dataCourse) : await courseAPI.updateCourse(dataUpdate.id, dataCourse)
         message.success(res.message)
         setDataCourse(dataCourseDefault)
+        setValidInput(validInputDefault)
         setIsModalCourse(false)
         setImageUrl('')
         fetchData()
@@ -119,8 +81,39 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
     }
   }
 
+  const handleChangeUpload = async (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setImage(file)
+      const url = URL.createObjectURL(file)
+      setImageUrl(url)
+    }
+  }
+
+  const handleImageUpload = async () => {
+    const formData = new FormData()
+    formData.append('image', image)
+
+    try {
+      const response = await fetch('http://localhost:4000/api/upload/course', {
+        method: 'POST',
+        body: formData
+      })
+
+      const data = await response.json()
+      if (data.imageUrl) {
+        handleChangeInput('image', data.imageUrl)
+      } else {
+        message.error('Upload failed')
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error)
+    }
+  }
+
   useEffect(() => {
-    setDataCourse(dataUpdate)
+    const { Category, CategoryId, ...rest } = dataUpdate
+    setDataCourse(rest)
     setImageUrl(dataUpdate.image)
   }, [dataUpdate])
 
@@ -129,28 +122,21 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
       <Modal open={isModalCourse} title={action === 'CREATE' ? 'Tạo khóa học' : 'Cập nhật khóa học'} onOk={handleOk} onCancel={handleCancel}>
         <div className='grid grid-cols-2 gap-4'>
           <div className='col-span-2 text-center'>
-            <Upload
-              name='avatar'
-              listType='picture-card'
-              className='avatar-uploader'
-              showUploadList={false}
-              action='https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload'
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
+            <label htmlFor='imgCourse' className='m-auto w-24 h-24 flex rounded text-[#404040] gap-2 justify-center items-center cursor-pointer border-2 border-dashed'>
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt='avatar'
-                  style={{
-                    height: '100%',
-                    objectFit: 'contain'
-                  }}
-                />
+                <img src={imageUrl} className='w-full h-full' alt='image' />
               ) : (
-                uploadButton
+                <div className='flex justify-center items-center flex-col gap-y-2'>
+                  <>
+                    <span className='text-2xl'>
+                      <MdCloudUpload />
+                    </span>
+                    <span>Image</span>
+                  </>
+                </div>
               )}
-            </Upload>
+            </label>
+            <input required className='hidden' type='file' id='imgCourse' onChange={handleChangeUpload} accept='image/png,image/jpeg' />
           </div>
           <div>
             <span>
@@ -189,11 +175,11 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
             onChange={(value) => {
               handleChangeInput('categoryId', value)
             }}
-            value={dataCourse?.categoryId?.title}
+            value={dataCourse?.categoryId}
             status={!validInput.categoryId && 'error'}
             options={listCate.map((item) => {
               return {
-                value: item._id,
+                value: item.id,
                 label: item.title
               }
             })}

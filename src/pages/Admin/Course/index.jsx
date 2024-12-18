@@ -15,8 +15,8 @@ const Course = () => {
   const [listCate, setListCate] = useState([])
   const [dataUpdate, setDataUpdate] = useState({})
 
-  const handleDelete = async (_id) => {
-    await courseAPI.deleteCourse(_id)
+  const handleDelete = async (id) => {
+    await courseAPI.deleteCourse(id)
     message.success('Xóa thành công')
     fetchData()
   }
@@ -26,7 +26,7 @@ const Course = () => {
       title: 'Image',
       dataIndex: 'image',
       render: (data) => {
-        return <Image width={80} src={data} />
+        return <Image preview={false} width={80} src={data} />
       }
     },
     {
@@ -46,9 +46,9 @@ const Course = () => {
     },
     {
       title: 'Thể loại',
-      dataIndex: 'categoryId',
-      render: (data) => {
-        return <span>{data.title}</span>
+      dataIndex: 'Category',
+      render: (Category) => {
+        return <span>{Category?.title}</span>
       }
     },
     {
@@ -64,7 +64,7 @@ const Course = () => {
                 setActionModal('UPDATE')
               }}
             />
-            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' onConfirm={() => handleDelete(data._id)} okText='Yes' cancelText='No'>
+            <Popconfirm placement='leftTop' title='Xác nhận xóa' description='Bạn có chắc muốn xóa?' onConfirm={() => handleDelete(data.id)} okText='Yes' cancelText='No'>
               <FaRegTrashAlt className='text-2xl cursor-pointer text-red-500' />
             </Popconfirm>
           </div>

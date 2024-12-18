@@ -72,7 +72,7 @@ const Navbar = () => {
                       listCate.map((cate) => (
                         <>
                           <li>
-                            <NavLink to={`/course/${cate._id}`} className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
+                            <NavLink to={`/course/${cate.id}`} className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
                               {cate.title}
                             </NavLink>
                           </li>

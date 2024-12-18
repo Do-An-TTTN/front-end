@@ -10,7 +10,7 @@ import { formatPriceVND } from '~/utils/formatPriceVND'
 
 const CoursePage = () => {
   const navigate = useNavigate()
-  const { _id } = useParams()
+  const { id } = useParams()
 
   const handleContactClick = () => {
     navigate('/', { state: { scrollTo: 'contact' } })
@@ -20,7 +20,7 @@ const CoursePage = () => {
 
   const fetchData = async () => {
     try {
-      const res = await cateAPI.getCourseCate(_id)
+      const res = await cateAPI.getCourseCate(id)
       setListCourse(res.data)
     } catch (error) {
       console.log(error)
@@ -29,7 +29,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     fetchData()
-  }, [_id])
+  }, [id])
 
   return (
     <>
@@ -44,7 +44,7 @@ const CoursePage = () => {
               {listCourse.map((course) => (
                 <>
                   <div key={course.id} className='bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105' role='article'>
-                    <div className='relative h-60'>
+                    <div className='relative h-80'>
                       <img
                         src={course.image}
                         alt={course.title}
