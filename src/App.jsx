@@ -13,6 +13,7 @@ import AddNews from '~/pages/Admin/AddNews'
 import UpdateNews from '~/pages/Admin/UpdateNews'
 import AdminNews from '~/pages/Admin/News'
 import DetailNews from '~/pages/Guest/News/Detail/_id'
+import Linguaskill from './pages/Guest/Linguaskill'
 
 function App() {
   const router = createBrowserRouter([
@@ -22,12 +23,13 @@ function App() {
       children: [
         { path: '/', element: <HomePage /> },
         { path: '/course/:id', element: <CoursePage /> },
+        { path: '/linguaskill', element: <Linguaskill /> },
         { path: '/our-company', element: <OurCompany /> },
         { path: '/feartured-news', element: <FeaturedNews /> },
         { path: '/events', element: <EventsPage /> },
         { path: '/news', element: <News /> },
-        { path: '/news/:id', element: <DetailNews /> }
-      ]
+        { path: '/news/:id', element: <DetailNews /> },
+      ],
     },
     {
       path: '',
@@ -38,9 +40,9 @@ function App() {
         { path: '/admin/contact', element: <Contact /> },
         { path: '/admin/news', element: <AdminNews /> },
         { path: '/admin/add-news', element: <AddNews /> },
-        { path: '/admin/update-news/:id', element: <UpdateNews /> }
-      ]
-    }
+        { path: '/admin/update-news/:id', element: <UpdateNews /> },
+      ],
+    },
   ])
 
   return <RouterProvider router={router} />
