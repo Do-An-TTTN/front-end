@@ -29,7 +29,7 @@ export default function AdminNews() {
       title: 'Thumbnail',
       dataIndex: 'image',
       render: (data) => {
-        return <Image preview={false} width={80} src={data} />
+        return <Image preview={false} width={80} height={100} src={data} />
       }
     },
     {
@@ -41,9 +41,9 @@ export default function AdminNews() {
     },
     {
       title: 'Tác giả',
-      dataIndex: 'User',
-      render: (User) => {
-        return <>{User.name}</>
+      dataIndex: 'user',
+      render: (user) => {
+        return <>{user?.name}</>
       }
     },
     {

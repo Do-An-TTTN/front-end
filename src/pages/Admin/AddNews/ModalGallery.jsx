@@ -20,14 +20,17 @@ export default function ModalGallery({ show, setShow }) {
 
     const formData = new FormData()
     multipleImages.forEach((image) => {
-      formData.append('images', image)
+      formData.append(process.env.BUILD_MODE == 'production' ? 'images[]' : 'images', image)
     })
 
     try {
-      const response = await fetch('http://localhost:4000/api/upload/news/multiple', {
-        method: 'POST',
-        body: formData
-      })
+      const response = await fetch(
+        process.env.BUILD_MODE == 'production' ? 'https://langsch5sao.edu.vn/backend/api/upload/news/multiple' : 'http://localhost:4000/api/upload/news/multiple',
+        {
+          method: 'POST',
+          body: formData
+        }
+      )
 
       const data = await response.json()
       if (data.images) {

@@ -51,10 +51,13 @@ export default function UpdateNews() {
     const formData = new FormData()
     formData.append('image', singleImage)
     try {
-      const response = await fetch('http://localhost:4000/api/upload/news/single', {
-        method: 'POST',
-        body: formData
-      })
+      const response = await fetch(
+        process.env.BUILD_MODE == 'production' ? 'https://langsch5sao.edu.vn/backend/api/upload/news/single' : 'http://localhost:4000/api/upload/news/single',
+        {
+          method: 'POST',
+          body: formData
+        }
+      )
 
       const data = await response.json()
       if (data.imageUrl) {

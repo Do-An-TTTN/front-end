@@ -95,10 +95,13 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
     formData.append('image', image)
 
     try {
-      const response = await fetch('http://localhost:4000/api/upload/course', {
-        method: 'POST',
-        body: formData
-      })
+      const response = await fetch(
+        process.env.BUILD_MODE == 'production' ? 'https://langsch5sao.edu.vn/backend/api/upload/news/single' : 'http://localhost:4000/api/upload/course',
+        {
+          method: 'POST',
+          body: formData
+        }
+      )
 
       const data = await response.json()
       if (data.imageUrl) {

@@ -46,9 +46,9 @@ const Course = () => {
     },
     {
       title: 'Thể loại',
-      dataIndex: 'Category',
-      render: (Category) => {
-        return <span>{Category?.title}</span>
+      dataIndex: 'category',
+      render: (category) => {
+        return <span>{category?.title}</span>
       }
     },
     {

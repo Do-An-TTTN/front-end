@@ -153,28 +153,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Events Section */}
-      <section className='py-20 bg-gray-50'>
-        <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Sự kiện sắp tới</h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-            {events.map((event) => (
-              <div key={event.id} className='bg-white p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105'>
-                {/* Image Section */}
-                <img src={`/images/${event.image}`} alt={event.title} className='w-full h-60 object-cover rounded-t-lg mb-4' />
-
-                {/* Event Content */}
-                <h3 className='text-2xl font-bold mb-2'>{event.title}</h3>
-                <p className='text-red-600 mb-4'>{new Date(event.date).toLocaleDateString()}</p>
-                <p className='text-gray-600 mb-6'>{event.description}</p>
-
-                <ButtonCustom>Xem chi tiết</ButtonCustom>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <Contact />
 

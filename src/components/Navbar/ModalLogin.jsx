@@ -1,10 +1,13 @@
 import { Form, Input, message, Modal, Spin } from 'antd'
 import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import authAPI from '~/api/authAPI'
 import ButtonCustom from '~/components/ui/Button'
 import { AuthContext } from '~/context/AuthContext'
 
 export default function ModalLogin({ isModalOpen, setIsModalOpen }) {
+  const navigate = useNavigate()
   const [isLoading, setisLoading] = useState(false)
   const [frmRegis, setFrmRegis] = useState(false)
   const { updateUser } = useContext(AuthContext)
@@ -15,6 +18,9 @@ export default function ModalLogin({ isModalOpen, setIsModalOpen }) {
     try {
       const res = frmRegis ? await authAPI.register(values) : await authAPI.logIn(values)
       !frmRegis && updateUser(res.data.user)
+      if (res.data?.user?.role === 'admin') {
+        navigate('/admin')
+      }
       message.success(res.message)
       setIsModalOpen(false)
       setFrmRegis(false)

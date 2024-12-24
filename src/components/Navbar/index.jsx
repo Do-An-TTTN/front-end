@@ -50,34 +50,23 @@ const Navbar = () => {
         <div className='container mx-auto px-4'>
           <div className='flex justify-between items-center py-3'>
             <NavLink to='/'>
-              <img
-                src='/images/logotrungtamstar.png'
-                href='/Home'
-                alt='Logo'
-                className='h-10 w-24 object-cover'
-              />
+              <div className='flex items-center'>
+                <img src='/images/logotrungtamstar.png' href='/Home' alt='Logo' className='h-10 w-24 object-cover' />
+                <span className='uppercase ml-2 font-semibold text-red-700'>Trung Tâm Anh Ngữ Star</span>
+              </div>
             </NavLink>
 
             {/* Desktop Menu */}
 
             <div className='hidden md:flex space-x-8 md:items-center'>
-              <NavLink
-                href='/'
-                className='hover:text-red-600 transition duration-300'
-              >
+              <NavLink href='/' className='hover:text-red-600 transition duration-300'>
                 Trang chủ
               </NavLink>
-              <NavLink
-                to='/news'
-                className='text-gray-700 hover:text-red-600 transition duration-300'
-              >
+              <NavLink to='/news' className='text-gray-700 hover:text-red-600 transition duration-300'>
                 Tin tức
               </NavLink>
               <div className='relative group'>
-                <a
-                  href='#'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
+                <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   Khóa học
                 </a>
                 <div className='absolute left-0 w-52 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
@@ -86,10 +75,7 @@ const Navbar = () => {
                       listCate.map((cate) => (
                         <>
                           <li>
-                            <NavLink
-                              to={`/course/${cate.id}`}
-                              className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'
-                            >
+                            <NavLink to={`/course/${cate.id}`} className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
                               {cate.title}
                             </NavLink>
                           </li>
@@ -99,139 +85,39 @@ const Navbar = () => {
                 </div>
               </div>
               <div className='relative group'>
-                <a
-                  href='/linguaskill'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
+                <a href='/linguaskill' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   Linguaskill
                 </a>
               </div>
               <div className='relative group'>
-                <a
-                  href='https://futurelang.edu.vn/gioi-thieu'
-                  target='_blank'
-                  rel='noreferrer'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
+                <a href='https://futurelang.edu.vn/gioi-thieu' target='_blank' rel='noreferrer' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   FutureLang
                 </a>
               </div>
               <div className='relative group'>
-                <a
-                  href='#'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
+                <a href='#' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   Thông tin
                 </a>
                 <div className='absolute left-0 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
                   <ul className='py-2'>
                     <li>
-                      <a
-                        href='/our-company'
-                        className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'
-                      >
+                      <a href='/our-company' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
                         Về trung tâm
                       </a>
                     </li>
                   </ul>
                 </div>
               </div>
-              <Link
-                to='/'
-                onClick={handleContactClick}
-                className='text-gray-700 hover:text-red-600 transition duration-300 cursor-pointer'
-              >
-                Liên hệ
-              </Link>
-              <ButtonCustom onClick={showModal}>
-                {currentUser ? 'Đăng xuất' : 'Đăng nhập'}{' '}
-              </ButtonCustom>
+              <ButtonCustom onClick={showModal}>{currentUser ? 'Đăng xuất' : 'Đăng nhập'} </ButtonCustom>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className='md:hidden text-gray-700 focus:outline-none'
-            >
-              <svg
-                className='h-6 w-6'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                {isMenuOpen ? (
-                  <path d='M6 18L18 6M6 6l12 12' />
-                ) : (
-                  <path d='M4 6h16M4 12h16M4 18h16' />
-                )}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className='md:hidden text-gray-700 focus:outline-none'>
+              <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
+                {isMenuOpen ? <path d='M6 18L18 6M6 6l12 12' /> : <path d='M4 6h16M4 12h16M4 18h16' />}
               </svg>
             </button>
           </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className='md:hidden p-4 bg-stone-100'>
-              <div className='flex flex-col space-y-4'>
-                <a
-                  href='/'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
-                  Trang chủ
-                </a>
-                <a
-                  href='/course'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
-                  Khóa học
-                </a>
-                <a
-                  href='https://futurelang.edu.vn/gioi-thieu'
-                  target='_blank'
-                  rel='noreferrer'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
-                  FutureLang
-                </a>
-                <a
-                  href='/news'
-                  className='text-gray-700 hover:text-red-600 transition duration-300'
-                >
-                  Tin tức
-                </a>
-                <div className='relative group'>
-                  <a
-                    href='#'
-                    className='text-gray-700 hover:text-red-600 transition duration-300'
-                  >
-                    Thông tin
-                  </a>
-                  <div className='absolute left-0 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-10'>
-                    <ul className='py-2'>
-                      <li>
-                        <a
-                          href='#our-team'
-                          className='block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'
-                        >
-                          Về trung tâm
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <Link
-                  to='contact'
-                  duration='500'
-                  smooth='true'
-                  className='text-gray-700 hover:text-red-600 transition duration-300 cursor-pointer'
-                >
-                  Liên hệ
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
       <ModalLogin isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

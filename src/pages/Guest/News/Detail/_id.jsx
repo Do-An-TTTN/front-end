@@ -30,7 +30,7 @@ export default function DetailNews() {
         <div className='flex items-center text-sm text-gray-600 mb-8'>
           <div className='flex items-center mr-6'>
             <FiUser className='w-4 h-4 mr-2' />
-            <span>{news?.User?.name}</span>
+            <span>{news?.user?.name}</span>
           </div>
           <div className='flex items-center mr-6'>
             <SlCalender className='w-4 h-4 mr-2' />

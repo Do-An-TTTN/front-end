@@ -17,7 +17,7 @@ export default function NewsItem({ item }) {
         <div className='flex items-center text-sm text-gray-500'>
           <div className='flex items-center mr-4'>
             <FiUser className='w-4 h-4 mr-1' />
-            <span>{item?.User?.name}</span>
+            <span>{item?.user?.name}</span>
           </div>
           <div className='flex items-center'>
             <SlCalender className='w-4 h-4 mr-1' />
