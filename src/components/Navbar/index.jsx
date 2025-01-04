@@ -1,7 +1,6 @@
 import { message } from 'antd'
 import { useContext, useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { Link } from 'react-scroll'
+import { NavLink } from 'react-router-dom'
 import authAPI from '~/api/authAPI'
 import cateAPI from '~/api/cateAPI'
 import ModalLogin from '~/components/Navbar/ModalLogin'
@@ -13,9 +12,8 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCourseMenuOpen, setIsCourseMenuOpen] = useState(false)
   const [listCate, setListCate] = useState([])
-
-  const navigate = useNavigate()
 
   const showModal = async () => {
     if (currentUser) {
@@ -25,10 +23,6 @@ const Navbar = () => {
     } else {
       setIsModalOpen(true)
     }
-  }
-
-  const handleContactClick = () => {
-    navigate('/', { state: { scrollTo: 'contact' } })
   }
 
   const fetchData = async () => {
@@ -58,7 +52,7 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
 
-            <div className='hidden md:flex space-x-8 md:items-center'>
+            <div className='hidden xl:flex space-x-8 md:items-center'>
               <NavLink href='/' className='hover:text-red-600 transition duration-300'>
                 Trang chủ
               </NavLink>
@@ -85,9 +79,9 @@ const Navbar = () => {
                 </div>
               </div>
               <div className='relative group'>
-                <a href='/linguaskill' className='text-gray-700 hover:text-red-600 transition duration-300'>
+                <NavLink to='/linguaskill' className='text-gray-700 hover:text-red-600 transition duration-300'>
                   Linguaskill
-                </a>
+                </NavLink>
               </div>
               <div className='relative group'>
                 <a href='https://futurelang.edu.vn/gioi-thieu' target='_blank' rel='noreferrer' className='text-gray-700 hover:text-red-600 transition duration-300'>
@@ -108,15 +102,69 @@ const Navbar = () => {
                   </ul>
                 </div>
               </div>
+              {currentUser?.role === 'admin' && (
+                <NavLink to='/admin'>
+                  <span className='hover:text-red-600'>Trang quản trị</span>
+                </NavLink>
+              )}
               <ButtonCustom onClick={showModal}>{currentUser ? 'Đăng xuất' : 'Đăng nhập'} </ButtonCustom>
             </div>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className='md:hidden text-gray-700 focus:outline-none'>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className='xl:hidden text-gray-700 focus:outline-none'>
               <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
                 {isMenuOpen ? <path d='M6 18L18 6M6 6l12 12' /> : <path d='M4 6h16M4 12h16M4 18h16' />}
               </svg>
             </button>
+            {isMenuOpen && (
+              <div className='xl:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-40'>
+                <ul className='flex flex-col space-y-2 pt-0 p-6'>
+                  <NavLink href='/' onClick={() => setIsMenuOpen(false)} className='text-gray-700 mt-1 py-2 hover:text-red-600 transition duration-300 text-sm'>
+                    Trang chủ
+                  </NavLink>
+                  <NavLink to='/news' onClick={() => setIsMenuOpen(false)} className='text-gray-700 py-2 hover:text-red-600 transition duration-300 text-sm m-0'>
+                    Tin tức
+                  </NavLink>
+                  <li className='relative group'>
+                    <a href='#' onClick={() => setIsCourseMenuOpen(!isCourseMenuOpen)} className='text-gray-700 hover:text-red-600 py-2 block transition duration-300 text-sm'>
+                      Khóa học
+                    </a>
+                    {isCourseMenuOpen && (
+                      <ul className='mt-2 ml-4'>
+                        {listCate?.length > 0 &&
+                          listCate.map((cate) => (
+                            <li key={cate.id}>
+                              <NavLink to={`/course/${cate.id}`} onClick={() => setIsMenuOpen(false)} className='block p-2 text-gray-700 hover:bg-gray-100 hover:text-red-600'>
+                                {cate.title}
+                              </NavLink>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </li>
+                  <NavLink to='/linguaskill' onClick={() => setIsMenuOpen(false)} className='text-gray-700 hover:text-red-600 py-2 transition duration-300 text-sm'>
+                    Linguaskill
+                  </NavLink>
+                  <a
+                    href='https://futurelang.edu.vn/gioi-thieu'
+                    target='_blank'
+                    rel='noreferrer'
+                    className='text-gray-700 py-2 block hover:text-red-600 transition duration-300 text-sm'
+                  >
+                    FutureLang
+                  </a>
+                  <NavLink to='/our-company' onClick={() => setIsMenuOpen(false)} className='text-gray-700 hover:text-red-600 py-2 transition duration-300 text-sm'>
+                    Về trung tâm
+                  </NavLink>
+                  {currentUser?.role === 'admin' && (
+                    <NavLink to='/admin' className='hover:text-red-600 py-2 text-sm'>
+                      Trang quản trị
+                    </NavLink>
+                  )}
+                  <ButtonCustom onClick={showModal}>{currentUser ? 'Đăng xuất' : 'Đăng nhập'}</ButtonCustom>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </nav>

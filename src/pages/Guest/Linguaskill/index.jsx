@@ -9,10 +9,10 @@ const Linguaskill = () => {
   }
   return (
     <>
-      <div className='bg-gray-50 min-h-screen p-6 mt-6'>
+      <div className='bg-gray-50 min-h-screen lg:p-6 mt-6'>
         <div className='max-w-6xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden'>
-          <div className='p-6'>
-            <h1 className='text-3xl font-bold text-center text-red-600 my-6'>GIỚI THIỆU CHỨNG CHỈ TIẾNG ANH LINGUASKILL</h1>
+          <div className='p-4 md:p-6'>
+            <h1 className='text-2xl md:text-4xl font-bold text-center text-red-600 mt-12 md:my-6'>GIỚI THIỆU CHỨNG CHỈ TIẾNG ANH LINGUASKILL</h1>
 
             <div className='mt-4'>
               <h2 className='text-2xl font-bold text-red-600'>1. Chứng chỉ Linguaskill là gì?</h2>

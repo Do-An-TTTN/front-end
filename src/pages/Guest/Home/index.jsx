@@ -1,62 +1,18 @@
-import { useState, useEffect } from 'react'
+import { Carousel } from 'antd'
+import { useState, useEffect, useRef } from 'react'
 import { IoIosArrowUp } from 'react-icons/io'
 import { useLocation } from 'react-router-dom'
+import bannerAPI from '~/api/bannerAPI'
+import courseAPI from '~/api/courseAPI'
+import pageAPI from '~/api/pageAPI'
+import { CardCourse } from '~/components/CardCourse'
 import Contact from '~/components/Contact'
-import ButtonCustom from '~/components/ui/Button'
 
 const HomePage = () => {
   const [isVisible, setIsVisible] = useState(false)
-
-  const programs = [
-    {
-      id: 1,
-      title: 'Tiếng Anh thiếu nhi',
-      description: 'Xây dựng nền tảng tiếng Anh vững chắc ngay khi còn nhỏ cho bé.',
-      features: [
-        'Luyện phát âm giọng chuẩn',
-        'Ôn luyện ngữ pháp theo sách giáo khoa ở trường',
-        'Phát huy toàn diện 4 kỹ năng nghe - nói - đọc - viết',
-        'Đảm bảo chuẩn đầu ra của Đại học Cambridge'
-      ],
-      image: 'tienganhthieunhi.jpg'
-    },
-    {
-      id: 2,
-      title: 'IELTS',
-      description: 'Chuẩn bị cho kỳ thi IELTS với sự hướng dẫn tận tình từ đội ngũ giáo viên giàu kinh nghiệm',
-      features: [
-        'Đảm bảo chuẩn đầu ra IELTS từ 6.',
-        'Luyện phát âm với giáo viên bản xứ',
-        'Phát huy toàn diện 4 kỹ năng nghe - nói - đọc - viết',
-        'Tham gia các Mock Test để đánh giá kỹ năng'
-      ],
-      image: 'ielts.jpg'
-    },
-    {
-      id: 3,
-      title: 'PTE',
-      description: 'Cách nhanh hơn và công bằng hơn để chứng minh trình độ tiếng Anh của bạn. Nhận kết quả chỉ trong 48 giờ.',
-      features: ['100% học với giáo viên bản xứ', 'Học online hoặc trực tiếp tại trung tâm', 'Đảm bảo chuẩn đầu ra như cam kết'],
-      image: 'PTE.jpg'
-    }
-  ]
-
-  const events = [
-    {
-      id: 1,
-      title: 'Khai giảng lớp tiếng Anh thiếu nhi',
-      image: 'sukientienganhthieunhi.jpg',
-      date: '2024-02-12',
-      description: 'Khai giảng các lớp tiếng Anh thiếu nhi dành cho các bé từ 5-11 tuổi'
-    },
-    {
-      id: 2,
-      title: 'Lễ khai giảng lớp tiếng Đức',
-      image: 'khaigiang.jpg',
-      date: '2024-12-10',
-      description: 'Khai giảng lớp tiếng Đức'
-    }
-  ]
+  const [listBanners, setListBanners] = useState([])
+  const [listPages, setListPages] = useState([])
+  const [listCourses, setListCourses] = useState([])
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -89,66 +45,107 @@ const HomePage = () => {
     }
   }, [location])
 
+  const fetchData = async () => {
+    try {
+      const res = await bannerAPI.getAllBanners()
+      const pages = await pageAPI.getAllPages()
+      const courses = await courseAPI.getAllCourse()
+      setListPages(pages.data)
+      setListBanners(res.data)
+      setListCourses(courses.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const scrollContainerRef = useRef(null)
+
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    const scrollInterval = 3000 // 3 giây
+    const itemWidth = 300 // Chiều rộng của mỗi item, điều chỉnh theo `min-w-[300px]`
+
+    let currentIndex = 0
+
+    const scrollStep = () => {
+      if (container) {
+        const maxScroll = container.scrollWidth - container.clientWidth
+
+        if (currentIndex * itemWidth >= maxScroll) {
+          // Quay lại đầu danh sách
+          currentIndex = 0
+          container.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          // Cuộn qua item tiếp theo
+          currentIndex++
+          container.scrollTo({ left: currentIndex * itemWidth, behavior: 'smooth' })
+        }
+      }
+    }
+
+    const interval = setInterval(scrollStep, scrollInterval)
+
+    // Dọn dẹp interval khi component unmount
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className='font-sans'>
-      {/* Hero Section */}
-      <section className='relative h-[500px] mt-16'>
-        {' '}
-        <div className='absolute inset-0'>
-          <img src='/images/hero.jpg' alt='English Learning Environment' className='w-full h-full object-contain' />
-          <div className='absolute inset-0 bg-black bg-opacity-10'></div>
-        </div>
-      </section>
-
-      <section className='GT section flex items-center justify-center min-h-screen bg-gray-100' id='GT'>
-        <div className='container max-w-5xl text-center p-3'>
-          <h1 className='text-4xl mb-10 font-bold text-red-600'>Trung tâm Anh ngữ Star xin chào bạn</h1>
-          <div className='intro-content flex items-center justify-center space-x-4'>
-            <img src='/images/taytrai.png' alt='Bàn tay bên trái' className='hand left-hand w-1/3 h-auto' />
-            <img className='intro-image w-1/2 h-auto' src='/images/ThuNgoStar.png' alt='Giới Thiệu Image' onClick='openModal(this)' />
-            <img src='/images/tayphai.png' alt='Bàn tay bên phải' className='hand right-hand w-1/3 h-auto' />
-          </div>
-        </div>
-      </section>
-
-      <section className='bg-gray-50 py-12'>
-        <div className='container mx-auto px-4'>
-          {/* Section Heading */}
-          <div className='text-center mb-12'>
-            <h1 className='text-4xl font-bold text-red-600'>Anh văn Thiếu nhi</h1>
-          </div>
-
-          {/* Grid Layout for Images */}
-          <div className='intro-content flex items-center justify-center space-x-4 mx-10'>
-            <img className='intro-image w-1/2 h-auto' src='/images/chitietchuongtrinh.jpg' alt='Chi tiết chương trình' onClick='openModal(this)' />
-            <img className='intro-image w-1/2 h-auto' src='/images/sukientienganhthieunhi.jpg' alt='Khai giảng lớp tiếng Anh thiếu nhi' onClick='openModal(this)' />
-          </div>
-        </div>
-      </section>
-
-      {/* Programs Section */}
-      <section className='py-20 bg-gray-50'>
-        <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Chương trình của chúng tôi</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            {programs.map((program) => (
-              <div key={program.id} className='bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300'>
-                <img src={`/images/${program.image}`} alt={program.title} className='w-full h-48 object-cover' />
-                <div className='p-6'>
-                  <h3 className='text-2xl font-bold mb-4'>{program.title}</h3>
-                  <p className='text-gray-600 mb-4'>{program.description}</p>
-                  <ul className='mb-6'>
-                    {program.features.map((feature, index) => (
-                      <li key={index} className='flex items-center mb-2'>
-                        <span className='w-2 h-2 bg-red-600 rounded-full mr-2'></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <ButtonCustom>Xem chi tiết</ButtonCustom>
+      <section className='w-full mt-[64px] bg-gray-100'>
+        <Carousel autoplay>
+          {listBanners.length > 0 &&
+            listBanners.map((banner, index) => {
+              return (
+                <div key={index}>
+                  <img
+                    src={banner.url}
+                    alt='English Learning Environment'
+                    className='h-[200px] md:h-[600px] w-11/12 md:w-4/5 mx-auto mt-5 rounded-lg text-white leading-[160px] text-center bg-[#364d79] object-cover'
+                  />
                 </div>
-              </div>
-            ))}
+              )
+            })}
+        </Carousel>
+      </section>
+
+      <section className='py-12 flex items-center justify-center bg-gray-100 overflow-hidden' id='GT'>
+        <div className='container max-w-5xl text-center p-3'>
+          <h1 className='text-xl md:text-4xl uppercase mb-10 font-bold text-red-600'>Trung tâm Anh ngữ Star xin chào bạn</h1>
+          <div className='intro-content flex items-center justify-center space-x-4'>
+            <img src='/images/taytrai.png' alt='Bàn tay bên trái' className='hand left-hand w-1/5 md:w-1/5 h-auto' />
+            <img className='intro-image w-3/5 h-auto' src='/images/ThuNgoStar.png' alt='Giới Thiệu Image' onClick='openModal(this)' />
+            <img src='/images/tayphai.png' alt='Bàn tay bên phải' className='hand right-hand w-1/5 md:w-1/5 h-auto' />
+          </div>
+        </div>
+      </section>
+
+      {listPages.length > 0 &&
+        listPages.map((page, index) => {
+          return (
+            <>
+              <section key={page.id} className='bg-gray-50 py-12'>
+                <div className='container mx-auto px-4'>
+                  <div className='text-center mb-12'>
+                    <h1 className='text-4xl font-bold text-red-600'>{page.title}</h1>
+                  </div>
+
+                  <div className='mx-10'>
+                    <div className='prose prose-lg max-w-none' dangerouslySetInnerHTML={{ __html: page.content }} />
+                  </div>
+                </div>
+              </section>
+            </>
+          )
+        })}
+      <section className='py-12 bg-gray-50'>
+        <div className='container mx-auto px-4'>
+          <h2 className='text-xl md:text-4xl uppercase font-bold text-center mb-12 text-red-600'>Chương trình của chúng tôi</h2>
+          <div ref={scrollContainerRef} className='overflow-x-auto flex space-x-8 p-8 '>
+            {listCourses.length > 0 && listCourses.map((course) => <CardCourse key={course.id} course={course} />)}
           </div>
         </div>
       </section>

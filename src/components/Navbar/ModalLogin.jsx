@@ -124,11 +124,10 @@ export default function ModalLogin({ isModalOpen, setIsModalOpen }) {
             </>
           )}
           <Form.Item>
-            <div className='flex justify-between items-center'>
-              <p className='cursor-pointer' onClick={() => setFrmRegis(true)}>
+            <div className=''>
+              <p className='text-red-500 cursor-pointer' onClick={() => setFrmRegis(true)}>
                 {!frmRegis && 'Đăng ký ngay'}
               </p>
-              <span className='text-rose-500 hover:text-rose-500 cursor-pointer'>Quên mật khẩu?</span>
             </div>
           </Form.Item>
 

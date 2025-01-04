@@ -1,92 +1,51 @@
+import { useContext } from 'react'
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { AuthContext } from '~/context/AuthContext'
 
 const Footer = () => {
+  const { infor } = useContext(AuthContext)
+
   return (
     <>
       <footer className='bg-gray-800 text-white py-8'>
         <div className='container mx-auto px-4'>
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
             <div>
               <h4 className='text-xl font-bold mb-4'>Về chúng tôi</h4>
-              <p className='text-gray-300'>
-                Chúng tôi tận tâm cung cấp các khóa học ngôn ngữ trực tuyến chất
-                lượng cao để giúp bạn đạt được mục tiêu học tập của mình.
-              </p>
+              <p className='text-gray-300'>Chúng tôi tận tâm cung cấp các khóa học ngôn ngữ trực tuyến chất lượng cao để giúp bạn đạt được mục tiêu học tập của mình.</p>
             </div>
-            <div>
-              <h4 className='text-xl font-bold mb-4'>Truy cập nhanh</h4>
-              <ul className='space-y-2'>
-                <li>
-                  <a
-                    href='#'
-                    className='text-gray-300 hover:text-white transition-colors'
-                  >
-                    Khóa học
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='text-gray-300 hover:text-white transition-colors'
-                  >
-                    Giáo viên
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='text-gray-300 hover:text-white transition-colors'
-                  >
-                    Tài liệu
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='text-gray-300 hover:text-white transition-colors'
-                  >
-                    Liên hệ
-                  </a>
-                </li>
-              </ul>
-            </div>
+
             <div>
               <h4 className='text-xl font-bold mb-4'>Thông tin liên hệ</h4>
               <ul className='space-y-2 text-gray-300'>
-                <li>Email: info@dn5sao.edu.vn</li>
-                <li>Số điện thoại: 0938 762 783</li>
-                <li>
-                  Địa chỉ: 85 Nguyễn Văn Nghi, Phường 7, Quận Gò Vấp, TP.HCM
-                </li>
+                <li>Email: {infor?.email}</li>
+                <li>Số điện thoại: {infor?.phone}</li>
+                <li>Địa chỉ: {infor?.address}</li>
               </ul>
             </div>
             <div>
               <h4 className='text-xl font-bold mb-4'>Theo dõi chúng tôi tại</h4>
               <div className='flex space-x-4'>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  <FaFacebook size={24} />
-                </a>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  <FaTwitter size={24} />
-                </a>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  <FaInstagram size={24} />
-                </a>
-                <a
-                  href='#'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  <FaLinkedin size={24} />
-                </a>
+                {infor?.facebook && (
+                  <a href={infor?.facebook} rel='noreferrer' target='_blank' className='text-gray-300 hover:text-white transition-colors'>
+                    <FaFacebook size={24} />
+                  </a>
+                )}
+                {infor?.twitter && (
+                  <a href={infor?.twitter} rel='noreferrer' target='_blank' className='text-gray-300 hover:text-white transition-colors'>
+                    <FaTwitter size={24} />
+                  </a>
+                )}
+                {infor?.linkedin && (
+                  <a href={infor?.linkedin} rel='noreferrer' target='_blank' className='text-gray-300 hover:text-white transition-colors'>
+                    <FaLinkedin size={24} />
+                  </a>
+                )}
+                {infor?.instagram && (
+                  <a href={infor?.instagram} rel='noreferrer' target='_blank' className='text-gray-300 hover:text-white transition-colors'>
+                    <FaInstagram size={24} />
+                  </a>
+                )}
               </div>
             </div>
           </div>

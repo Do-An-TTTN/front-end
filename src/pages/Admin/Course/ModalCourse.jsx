@@ -192,13 +192,11 @@ export default function ModalCourse({ isModalCourse, listCate, setIsModalCourse,
             <TextArea
               placeholder='Nhập mô tả'
               showCount
-              maxLength={100}
+              rows={4}
               onChange={(e) => handleChangeInput('description', e.target.value)}
               value={dataCourse?.description}
               status={!validInput.description && 'error'}
               style={{
-                height: 120,
-                resize: 'none',
                 marginBottom: '4px'
               }}
             />

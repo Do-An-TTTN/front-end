@@ -25,7 +25,7 @@ export default function DetailNews() {
   return (
     <div className='mt-20'>
       <article className='container mx-auto px-4 pt-2 pb-10'>
-        <Image src={news?.image} alt={news?.title} width='100%' height={500} preview={false} className='object-cover rounded-lg mb-8' />
+        <Image src={news?.image} alt={news?.title} width='100%' preview={false} className='object-cover rounded-lg mb-8 !h-60 md:!h-80 lg:!h-[400px]' />
         <h1 className='text-4xl font-bold mb-4 text-gray-800'>{news?.title}</h1>
         <div className='flex items-center text-sm text-gray-600 mb-8'>
           <div className='flex items-center mr-6'>

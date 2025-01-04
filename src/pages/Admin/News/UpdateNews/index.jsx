@@ -1,26 +1,24 @@
 import { Input, message } from 'antd'
 import JoditEditor from 'jodit-react'
-import { useContext, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdCloudUpload } from 'react-icons/md'
 import { FaArrowLeft } from 'react-icons/fa'
 
 import newsAPI from '~/api/newsAPI'
 import ButtonCustom from '~/components/ui/Button'
-import { AuthContext } from '~/context/AuthContext'
-import ModalGallery from '~/pages/Admin/AddNews/ModalGallery'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import TextArea from 'antd/es/input/TextArea'
+import ModalGallery from '~/pages/Admin/News/AddNews/ModalGallery'
 
-export default function AddNews() {
-  const { currentUser } = useContext(AuthContext)
+export default function UpdateNews() {
+  const { id } = useParams()
+
   const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false)
-
   const [singleImage, setSingleImage] = useState(null)
-  const [singleImageUrl, setSingleImageUrl] = useState('')
 
   const dataNewsDefault = {
-    userId: '',
+    writerId: '',
     title: '',
     image: '',
     description: '',
@@ -37,11 +35,11 @@ export default function AddNews() {
 
   const editor = useRef(null)
 
-  const handleSingleImageChange = async (e) => {
+  const handleImgThumbnail = (e) => {
     const file = e.target.files[0]
     if (file) {
       setSingleImage(file)
-      setSingleImageUrl(URL.createObjectURL(file))
+      handleChangeInput('image', URL.createObjectURL(file))
     }
   }
 
@@ -54,7 +52,7 @@ export default function AddNews() {
     formData.append('image', singleImage)
     try {
       const response = await fetch(
-        process.env.BUILD_MODE === 'production' ? 'https://langsch5sao.edu.vn/backend/api/upload/news/single' : 'http://localhost:4000/api/upload/news/single',
+        process.env.BUILD_MODE == 'production' ? 'https://langsch5sao.edu.vn/backend/api/upload/news/single' : 'http://localhost:4000/api/upload/news/single',
         {
           method: 'POST',
           body: formData
@@ -71,21 +69,34 @@ export default function AddNews() {
       console.log(error)
     }
   }
+
   const handleSubmitForm = async () => {
-    await handleSingleImageUpload()
     try {
+      await handleSingleImageUpload()
       setLoading(true)
-      const res = await newsAPI.createNews({ ...dataNews, userId: currentUser.id })
+      const res = await newsAPI.updateNews(id, { ...dataNews })
       message.success(res.message)
-      setDataNews(dataNewsDefault)
+      fetchData()
       setSingleImage(null)
-      setSingleImageUrl('')
     } catch (error) {
       message.error(error.response.data.message)
     } finally {
       setLoading(false)
     }
   }
+
+  const fetchData = async () => {
+    try {
+      const res = await newsAPI.getNews(id)
+      setDataNews(res.data)
+    } catch (error) {
+      message.error(error.response.data.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [id])
 
   return (
     <>
@@ -101,26 +112,24 @@ export default function AddNews() {
             <label className='text-md font-medium text-gray-600' htmlFor='title'>
               Tiêu đề
             </label>
-            <Input placeholder='Nhập tiêu đề' onChange={(e) => handleChangeInput('title', e.target.value)} />
+            <Input placeholder='Nhập tiêu đề' onChange={(e) => handleChangeInput('title', e.target.value)} value={dataNews?.title} />
           </div>
           <div className='mb-6'>
             <div>
               <span className='text-md font-medium text-gray-600'>Thumbnail</span>
               <label htmlFor='img' className='w-full h-[320px] flex rounded text-[#404040] gap-2 justify-center items-center cursor-pointer border-2 border-dashed'>
-                {singleImageUrl ? (
-                  <img src={singleImageUrl} className='w-full h-full' alt='image' />
+                {dataNews?.image ? (
+                  <img src={dataNews?.image} className='w-full h-full' alt='image' />
                 ) : (
                   <div className='flex justify-center items-center flex-col gap-y-2'>
-                    <>
-                      <span className='text-2xl'>
-                        <MdCloudUpload />
-                      </span>
-                      <span>Select Image</span>
-                    </>
+                    <span className='text-2xl'>
+                      <MdCloudUpload />
+                    </span>
+                    <span>Select Image</span>
                   </div>
                 )}
               </label>
-              <input required className='hidden' type='file' onChange={handleSingleImageChange} id='img' accept='image/png,image/jpeg' />
+              <input required className='hidden' type='file' onChange={handleImgThumbnail} id='img' accept='image/png,image/jpeg' />
             </div>
           </div>
           <div className='mb-6'>
@@ -151,7 +160,7 @@ export default function AddNews() {
           </div>
 
           <ButtonCustom onClick={handleSubmitForm} disabled={loading} className='bg-cyan-500 hover:!bg-cyan-600'>
-            {loading ? 'loading...' : 'Thêm'}
+            {loading ? 'loading...' : 'Sửa bài đăng'}
           </ButtonCustom>
         </form>
         <ModalGallery show={show} setShow={setShow} />

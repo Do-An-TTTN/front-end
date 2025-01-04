@@ -1,10 +1,14 @@
+import { useContext } from 'react'
 import { Form, Input, message } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import contactAPI from '~/api/contactAPI'
 import ButtonCustom from '~/components/ui/Button'
+import { AuthContext } from '~/context/AuthContext'
 
 export default function Contact() {
+  const { infor } = useContext(AuthContext)
+
   const onFinish = async (values) => {
     try {
       await contactAPI.createContact(values)
@@ -18,8 +22,8 @@ export default function Contact() {
     <>
       <section className='py-20' id='contact'>
         <div className='container mx-auto px-4'>
-          <h2 className='text-4xl font-bold text-center mb-16 text-red-600'>Liên hệ với chúng tôi</h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+          <h2 className='text-2xl md:text-4xl font-bold text-center mb-14 text-red-600'>Liên hệ với chúng tôi</h2>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
             <div>
               <h3 className='text-2xl font-bold mb-6'>Liên hệ</h3>
               <Form
@@ -87,22 +91,40 @@ export default function Contact() {
               <h3 className='text-2xl font-bold mb-6'>Thông tin</h3>
               <div className='space-y-4'>
                 <p className='flex items-center'>
-                  <span className='font-bold mr-2'>Address:</span> 85 Nguyễn Văn Nghi, Phường 7, Quận Gò Vấp, TP.HCM
+                  <span className='font-bold mr-2'>Địa chỉ: </span>
+                  {infor?.address}
                 </p>
                 <p className='flex items-center'>
-                  <span className='font-bold mr-2'>Phone:</span> 0938 762 783
+                  <span className='font-bold mr-2'>Số điện thoại: </span>
+                  {infor?.phone}
                 </p>
                 <p className='flex items-center'>
-                  <span className='font-bold mr-2'>Email:</span> info@dn5sao.edu.vn
+                  <span className='font-bold mr-2'>Email:</span> {infor?.email}
                 </p>
               </div>
-              <div className='mt-8'>
-                <h4 className='font-bold mb-4'>Follow Us</h4>
+              <div className='mt-5'>
+                <h4 className='font-bold mb-4'>Theo dõi chúng tôi:</h4>
                 <div className='flex space-x-4'>
-                  <FaFacebook className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
-                  <FaTwitter className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
-                  <FaInstagram className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
-                  <FaLinkedin className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
+                  {infor?.facebook && (
+                    <a href={infor?.facebook} rel='noreferrer' target='_blank'>
+                      <FaFacebook className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
+                    </a>
+                  )}
+                  {infor?.twitter && (
+                    <a href={infor?.twitter} rel='noreferrer' target='_blank'>
+                      <FaTwitter className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
+                    </a>
+                  )}
+                  {infor?.instagram && (
+                    <a href={infor?.instagram} rel='noreferrer' target='_blank'>
+                      <FaInstagram className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
+                    </a>
+                  )}
+                  {infor?.linkedin && (
+                    <a href={infor?.linkedin} rel='noreferrer' target='_blank'>
+                      <FaLinkedin className='text-2xl text-red-600 hover:text-red-700 cursor-pointer' />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

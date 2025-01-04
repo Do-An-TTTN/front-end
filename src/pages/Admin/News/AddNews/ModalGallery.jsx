@@ -52,7 +52,7 @@ export default function ModalGallery({ show, setShow }) {
   }
   return (
     <>
-      <input onChange={handleMultipleImageChange} type='file' multiple id='images' className='hidden' />
+      <input onChange={handleMultipleImageChange} type='file' multiple id='images' className='hidden' required accept='image/png,image/jpeg' />
 
       <Modal
         open={show}
